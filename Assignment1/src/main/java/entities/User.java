@@ -12,7 +12,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="users")
+@Table(name="USER_TABLE")
 public class User {
 
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
@@ -23,8 +23,7 @@ public class User {
 	private String Iname;
 	private String password;
 	
-    @OneToMany(mappedBy="user")
-    @OrderBy("name ASC")
+    @OneToMany(targetEntity=Address.class)
 	private List<Address> adresses;
 
 	public int getId() {
