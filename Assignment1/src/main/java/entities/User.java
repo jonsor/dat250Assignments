@@ -19,12 +19,12 @@ public class User {
     private int id;
     
 	private String uname;
+	private String password;
 	private String fname;
 	private String Iname;
-	private String password;
 	
-    @OneToMany(targetEntity=Address.class)
-	private List<Address> adresses;
+    @OneToMany(targetEntity=Device.class)
+	private List<Device> devices;
 
 	public int getId() {
 		return id;
@@ -66,13 +66,14 @@ public class User {
 		this.password = password;
 	}
 
-	public Collection<Address> getAdresses() {
-		return adresses;
+	public List<Device> getDevices() {
+		return devices;
 	}
 
-	public void setAdresses(List<Address> adresses) {
-		this.adresses = adresses;
+	public void setDevices(List<Device> devices) {
+		this.devices = devices;
 	}
+
     
     
 	

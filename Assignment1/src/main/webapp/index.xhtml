@@ -12,6 +12,28 @@
 <body>
 <h1>Hello World!</h1>
 
+<div>
+<f:view>
+        <h:form class="form-tweets">
+           <div class="div-container-sender div-container-sender-button">    
+          	 <h:commandButton action="#{userController.saveUser()}" value="Save User"/>
+           </div>
+      	 </h:form>
+   </f:view> 
+</div>
+
+ <div class="div-container-tweets">
+   <h:form>
+    <ui:repeat value="#{userController.getUsers()}" var="user">
+    <div class="div-container-tweet">
+    <b><h:outputLabel value="User ID: "/><h:outputText value="#{user.id}" /></b><br/>
+       <h:outputLabel value="Uname: "/><h:outputText value="#{user.uname}" /><br/>
+       <h:outputLabel value="Fname: "/><h:outputText value="#{user.fname}" /><br/>
+       <br/>
+     </div>
+   </ui:repeat>
+   </h:form>  
+   </div>
 </body>
 
 </html>
