@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import entities.Device;
 import entities.User;
 
 @Stateless
@@ -27,6 +28,15 @@ public class UserDao {
 
         Query query = em.createQuery("SELECT u FROM User u");
         List<User> users = new ArrayList<User>();
+        users = query.getResultList();
+        return users;
+    }
+    
+    @SuppressWarnings("unchecked")
+	public List<Device> getUserDevices(int userId) {
+
+        Query query = em.createQuery("SELECT u FROM Devices u where user_id="+ userId);
+        List<Device> users = new ArrayList<Device>();
         users = query.getResultList();
         return users;
     }

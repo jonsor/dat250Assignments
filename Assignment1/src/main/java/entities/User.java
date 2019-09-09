@@ -1,18 +1,17 @@
 package entities;
 
-import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="USER_TABLE")
+@Table(name = "user_table")
 public class User {
 
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
@@ -23,7 +22,7 @@ public class User {
 	private String fname;
 	private String Iname;
 	
-    @OneToMany(targetEntity=Device.class)
+    @OneToMany(mappedBy = "user", targetEntity=Device.class, cascade = CascadeType.ALL)
 	private List<Device> devices;
 
 	public int getId() {
@@ -73,8 +72,4 @@ public class User {
 	public void setDevices(List<Device> devices) {
 		this.devices = devices;
 	}
-
-    
-    
-	
 }
