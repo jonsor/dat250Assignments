@@ -21,7 +21,7 @@ public class Device {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) // Using lazy fetching for performance reasons
     @JoinColumn(name = "user_id")
     private User user;
     
