@@ -11,7 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import entities.Device;
 import entities.Feedback;
