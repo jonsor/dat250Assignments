@@ -20,7 +20,7 @@ public class User {
     
 	private String uname;
 	private String fname;
-	private String Iname;
+	private String lname;
 	private String password;
 	
     @OneToMany(mappedBy="user")
@@ -51,12 +51,12 @@ public class User {
 		this.fname = fname;
 	}
 
-	public String getIname() {
-		return Iname;
+	public String getLname() {
+		return lname;
 	}
 
-	public void setIname(String iname) {
-		Iname = iname;
+	public void seLname(String lname) {
+		this.lname = lname;
 	}
 
 	public String getPassword() {

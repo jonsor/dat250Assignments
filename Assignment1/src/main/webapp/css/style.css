@@ -1,0 +1,92 @@
+#wrapper {
+	min-height: 100%;
+}
+#loginForm {
+	padding: 20px 0;
+	margin: 0 auto;
+	display: grid;
+	grid-area-template: "user" "pass" "btn";
+	grid: 1fr;
+}
+
+#loginForm .loginField {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	outline: 0;
+	border: 1px solid #981B1B;
+	background-color: #981B1B;
+	width: 200px;
+	border-radius: 3px;
+	padding: 10px 15px;
+	margin: 0 auto 10px auto;
+	display: block;
+	text-align: center;
+	font-size: 18px;
+	-webkit-transition-duration: 0.25s;
+	transition-duration: 0.25s;
+	font-weight: 300;
+}
+#loginForm .loginField:focus {
+	background-color: #E9B6B0;
+	border: 1px solid #E9B6B0;
+}
+
+#loginForm .loginField:hover, #loginForm .loginField:active {
+	background-color: #E9B6B0;
+	border: 1px solid #E9B6B0;
+}
+
+.loginField:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 30px white inset;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+	color:    white;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	color:    white;
+	opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+	color:    white;
+	opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	color:    white;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+	color:    white;
+}
+
+#user {
+	color: white;
+	grid-area: "user";
+}
+
+#pass {
+	color: white;
+	grid-area: "pass";
+}
+
+.btn {
+	background: transparent;
+	padding: 5px 10px;
+	margin: 0 auto;
+	border: 3px solid #981B1B;
+	font-size: 14px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	border-radius: 2px;
+	display: inline-block;
+	text-align: center;
+	cursor: pointer;
+	box-shadow: inset 0 0 0 0 #981B1B;
+	-webkit-transition: all ease 0.8s;
+	-moz-transition: all ease 0.8s;
+	transition: all ease 0.8s;
+}
+.btn:hover {
+	box-shadow: inset 0 100px 0 0 #981B1B;
+	font-weight: bold;
+	color: white;
+}
