@@ -2,6 +2,7 @@ package ejb;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.Device;
+import entities.Feedback;
 import entities.User;
 
 @Stateless
@@ -20,6 +22,17 @@ public class UserDao {
     // Stores a new user:
     public void persist(User user) {
         em.persist(user);
+        Logger logger = Logger.getLogger(UserDao.class.getName());
+        logger.info(user.getFname());
+        logger.info(Integer.toString(user.getDevices().size()));
+        for(Device d : user.getDevices()) {
+        	logger.info(d.getName());
+        	em.persist(d);
+        	for(Feedback f : d.getFeedback()) {
+        		logger.info(f.getComment());
+        		em.persist(f);
+        	}
+        }
     }
 
     // Retrieves all the users:

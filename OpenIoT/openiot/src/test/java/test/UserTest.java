@@ -50,7 +50,6 @@ public class UserTest {
 	        }
 	        
 	        assertEquals(testUser, users.get(users.size()-1));
-	        
 	        assertTrue(false);
 	        
 	        

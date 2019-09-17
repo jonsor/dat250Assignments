@@ -7,13 +7,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_table")
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User {
 
+	public static final String FIND_ALL = "User.findAll";
+	
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
     

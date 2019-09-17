@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.Device;
+import entities.Feedback;
 import entities.User;
 
 @Stateless
@@ -20,6 +21,12 @@ public class UserDao {
     // Stores a new user:
     public void persist(User user) {
         em.persist(user);
+        for(Device d : user.getDevices()) {
+        	em.persist(d);
+        	for(Feedback f : d.getFeedback()) {
+        		em.persist(f);
+        	}
+        }
     }
 
     // Retrieves all the users:
@@ -35,7 +42,7 @@ public class UserDao {
     @SuppressWarnings("unchecked")
 	public List<Device> getUserDevices(int userId) {
 
-        Query query = em.createQuery("SELECT u FROM Devices u where user_id="+ userId);
+        Query query = em.createQuery("SELECT u FROM Device u where user_id="+ userId);
         List<Device> users = new ArrayList<Device>();
         users = query.getResultList();
         return users;
