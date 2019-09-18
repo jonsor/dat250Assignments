@@ -71,7 +71,7 @@ public class UserTest {
 		tempDevice.setData("data");
 		tempDevice.setImageUrl("imageUrl");
 		tempDevice.setName("name");
-		tempDevice.setOwnerId(6);
+//		tempDevice.setOwnerId(6);
 		tempDevice.setPublicDevice(true);
 		tempDevice.setStatus("online");
 		List<Feedback> feedback = new ArrayList<Feedback>();
@@ -79,7 +79,7 @@ public class UserTest {
 		fb.setComment("This device rules!");
 		fb.setRating(4);
 		feedback.add(fb);
-		tempDevice.setFeedback(feedback);
+//		tempDevice.setFeedback(feedback);
 		tempUser.setDevices(devices);
 		return tempUser;
 	}

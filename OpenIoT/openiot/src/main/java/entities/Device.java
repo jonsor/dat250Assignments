@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 @Table(name="device")
 @NamedQuery(name="Device.findAll", query="SELECT d FROM Device d")
@@ -27,10 +29,11 @@ public class Device {
 	
     @ManyToOne(fetch = FetchType.LAZY) // Using lazy fetching for performance reasons
     @JoinColumn(name = "user_id")
+    //@Expose(serialize = false, deserialize = false)
     private User user;
     
-	@OneToOne(targetEntity=User.class)
-	private int ownerId;
+	//@OneToOne(targetEntity=User.class)
+	//private int ownerId;
 	
 	private String name;
 	private String imageUrl;
@@ -38,20 +41,29 @@ public class Device {
 	private String status; 
 	private boolean publicDevice;
 	
-    @OneToMany(mappedBy = "device", targetEntity=Feedback.class, cascade = CascadeType.ALL)
-	private List<Feedback> feedback;
+//    @OneToMany(mappedBy = "device", targetEntity=Feedback.class, cascade = CascadeType.ALL)
+//	private List<Feedback> feedback;
+
+    
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public int getId() {
 		return id;
 	}
 
-	public int getOwnerId() {
-		return ownerId;
-	}
-
-	public void setOwnerId(int ownerId) {
-		this.ownerId = ownerId;
-	}
+//	public int getOwnerId() {
+//		return ownerId;
+//	}
+//
+//	public void setOwnerId(int ownerId) {
+//		this.ownerId = ownerId;
+//	}
 
 	public String getName() {
 		return name;
@@ -93,13 +105,13 @@ public class Device {
 		this.publicDevice = publicDevice;
 	}
 
-	public List<Feedback> getFeedback() {
-		return feedback;
-	}
-
-	public void setFeedback(List<Feedback> feedback) {
-		this.feedback = feedback;
-	}
+//	public List<Feedback> getFeedback() {
+//		return feedback;
+//	}
+//
+//	public void setFeedback(List<Feedback> feedback) {
+//		this.feedback = feedback;
+//	}
 
     
 }

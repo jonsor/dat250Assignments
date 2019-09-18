@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -26,9 +27,19 @@ public class User {
 	private String fname;
 	private String Iname;
 	
-    @OneToMany(mappedBy = "user", targetEntity=Device.class, cascade = CascadeType.ALL)
-	private List<Device> devices;
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+	private List<Device> devices = new ArrayList<>();
 
+    public void addDevice(Device device) {
+        devices.add(device);
+        device.setUser(this);
+    }
+ 
+    public void removedDevice(Device device) {
+    	devices.remove(device);
+    	device.setUser(null);
+    }
+    
 	public int getId() {
 		return id;
 	}

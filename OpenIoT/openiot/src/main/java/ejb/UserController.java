@@ -17,9 +17,6 @@ import entities.User;
 @RequestScoped
 public class UserController implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	// Injected DAO EJB:
@@ -29,10 +26,10 @@ public class UserController implements Serializable {
 	private User user;
 
 	public List<User> getUsers() {
-		List<User> reverseTweetList = new ArrayList<User>();
-		reverseTweetList.addAll(this.userDao.getAllUsers());
-		Collections.reverse(reverseTweetList);
-		return reverseTweetList;
+		List<User> userList = new ArrayList<User>();
+		userList.addAll(this.userDao.getAllUsers());
+		Collections.reverse(userList);
+		return userList;
 	}
 
 	public String saveUser() {
@@ -47,21 +44,20 @@ public class UserController implements Serializable {
 		tempUser.setPassword("password");
 		tempUser.setFname("Jonas");
 		tempUser.setIname("Sørsdal");
-		List<Device> devices = new ArrayList<Device>();
 		Device tempDevice = new Device();
 		tempDevice.setData("data");
 		tempDevice.setImageUrl("imageUrl");
 		tempDevice.setName("name");
-		tempDevice.setOwnerId(6);
+//		tempDevice.setOwnerId(6);
 		tempDevice.setPublicDevice(true);
 		tempDevice.setStatus("online");
-		List<Feedback> feedback = new ArrayList<Feedback>();
-		Feedback fb = new Feedback();
-		fb.setComment("This device rules!");
-		fb.setRating(4);
-		feedback.add(fb);
-		tempDevice.setFeedback(feedback);
-		tempUser.setDevices(devices);
+		tempUser.addDevice(tempDevice);
+//		List<Feedback> feedback = new ArrayList<Feedback>();
+//		Feedback fb = new Feedback();
+//		fb.setComment("This device rules!");
+//		fb.setRating(4);
+//		feedback.add(fb);
+//		tempDevice.setFeedback(feedback);
 		return tempUser;
 	}
 	
