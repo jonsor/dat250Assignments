@@ -70,4 +70,5 @@ public class DeviceController {
 	    
 		return Response.ok(jsonString).build();
 	}
+	
 }
