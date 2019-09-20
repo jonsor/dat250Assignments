@@ -1,8 +1,5 @@
 package entities;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,11 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.google.gson.annotations.Expose;
 
 @Entity
 @Table(name="device")
@@ -29,7 +22,6 @@ public class Device {
 	
     @ManyToOne(fetch = FetchType.LAZY) // Using lazy fetching for performance reasons
     @JoinColumn(name = "user_id")
-    //@Expose(serialize = false, deserialize = false)
     private User user;
     
 	//@OneToOne(targetEntity=User.class)

@@ -23,7 +23,7 @@ import entities.User;
 
 @Path("/users")
 @Stateless
-public class RestService {
+public class UserController {
 
 	@PersistenceContext(unitName = "Assignment1")
 	private EntityManager em;
