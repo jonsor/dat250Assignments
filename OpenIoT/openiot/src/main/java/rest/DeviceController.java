@@ -20,8 +20,10 @@ import com.google.gson.Gson;
 
 import entities.Device;
 import entities.User;
+import io.swagger.annotations.Api;
 
 @Path("/devices")
+@Api(value = "Device")
 @Stateless
 public class DeviceController {
 
