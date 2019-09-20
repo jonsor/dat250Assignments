@@ -65,7 +65,7 @@ public class UserTest {
 		tempUser.setUname("Jonsor");
 		tempUser.setPassword("password");
 		tempUser.setFname("Jonas");
-		tempUser.setIname("Sørsdal");
+		tempUser.setLname("Sørsdal");
 		List<Device> devices = new ArrayList<Device>();
 		Device tempDevice = new Device();
 		tempDevice.setData("data");
