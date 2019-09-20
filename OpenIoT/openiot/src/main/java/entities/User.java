@@ -25,7 +25,7 @@ public class User {
 	private String uname;
 	private String password;
 	private String fname;
-	private String Iname;
+	private String lname;
 	
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
 	private List<Device> devices = new ArrayList<>();
@@ -64,12 +64,12 @@ public class User {
 		this.fname = fname;
 	}
 
-	public String getIname() {
-		return Iname;
+	public String getLname() {
+		return lname;
 	}
 
-	public void setIname(String iname) {
-		Iname = iname;
+	public void setLname(String lname) {
+		this.lname = lname;
 	}
 
 	public String getPassword() {

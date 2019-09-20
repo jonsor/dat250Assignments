@@ -43,7 +43,7 @@ public class UserController implements Serializable {
 		tempUser.setUname("Jonsor");
 		tempUser.setPassword("password");
 		tempUser.setFname("Jonas");
-		tempUser.setIname("Sørsdal");
+		tempUser.setLname("SÃ¸rsdal");
 		Device tempDevice = new Device();
 		tempDevice.setData("data");
 		tempDevice.setImageUrl("imageUrl");
