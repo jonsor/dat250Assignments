@@ -18,10 +18,10 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 
 import entities.User;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Path("/users")
-@Api(value = "User")
+@Tag(name = "User", description = "Get and create users")
 @Stateless
 public class UserController {
 

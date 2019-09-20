@@ -2,7 +2,6 @@ package rest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,11 +18,10 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 
 import entities.Device;
-import entities.User;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Path("/devices")
-@Api(value = "Device")
+@Tag(name = "Device", description = "Get and create devices")
 @Stateless
 public class DeviceController {
 
