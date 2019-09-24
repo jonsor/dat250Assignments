@@ -12,16 +12,21 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Null;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="FEEDBACK_TABLE")
 public class Feedback {
 	
    @Id
-   @GeneratedValue( strategy= GenerationType.AUTO ) 	
+   @GeneratedValue( strategy= GenerationType.AUTO ) 
+   @JsonIgnore
    private int id;
    
    @ManyToOne(fetch = FetchType.LAZY)
    @JoinColumn(name = "device_id")
+   @JsonManagedReference
    private Device device;
    
    private String comment;

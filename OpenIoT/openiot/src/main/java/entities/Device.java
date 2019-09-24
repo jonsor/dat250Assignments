@@ -1,5 +1,8 @@
 package entities;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -8,7 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="device")
@@ -18,24 +27,32 @@ public class Device {
 	public static final String FIND_ALL = "Device.findAll";
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@JsonIgnore
 	private int id;
 	
     @ManyToOne(fetch = FetchType.LAZY) // Using lazy fetching for performance reasons
     @JoinColumn(name = "user_id")
+    @JsonManagedReference
     private User user;
     
 	//@OneToOne(targetEntity=User.class)
+//    @JoinColumn(name = "user_id")
+//    @JsonManagedReference
 	//private int ownerId;
-	
+    
+    @OneToMany(mappedBy = "device", targetEntity=Feedback.class, cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Feedback> feedback;
+    
+    @NotNull
 	private String name;
 	private String imageUrl;
+	@NotNull
 	private String data;
+	@NotNull
 	private String status; 
+	@NotNull
 	private boolean publicDevice;
-	
-//    @OneToMany(mappedBy = "device", targetEntity=Feedback.class, cascade = CascadeType.ALL)
-//	private List<Feedback> feedback;
-
     
 	public User getUser() {
 		return user;

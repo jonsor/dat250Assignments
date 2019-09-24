@@ -21,12 +21,6 @@ public class UserDao {
     // Stores a new user:
     public void persist(User user) {
         em.persist(user);
-//        for(Device d : user.getDevices()) {
-//        	em.persist(d);
-//        	for(Feedback f : d.getFeedback()) {
-//        		em.persist(f);
-//        	}
-//        }
     }
 
     // Retrieves all the users:
