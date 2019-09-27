@@ -66,21 +66,20 @@ public class UserTest {
 		tempUser.setPassword("password");
 		tempUser.setFname("Jonas");
 		tempUser.setLname("Sørsdal");
-		List<Device> devices = new ArrayList<Device>();
-		Device tempDevice = new Device();
-		tempDevice.setData("data");
-		tempDevice.setImageUrl("imageUrl");
-		tempDevice.setName("name");
+		Device device = new Device();
+		device.setData("data");
+		device.setImageUrl("imageUrl");
+		device.setName("name");
 //		tempDevice.setOwnerId(6);
-		tempDevice.setPublicDevice(true);
-		tempDevice.setStatus("online");
+		device.setPublicDevice(true);
+		device.setStatus("online");
 		List<Feedback> feedback = new ArrayList<Feedback>();
 		Feedback fb = new Feedback();
 		fb.setComment("This device rules!");
 		fb.setRating(4);
 		feedback.add(fb);
 //		tempDevice.setFeedback(feedback);
-		tempUser.setDevices(devices);
+		tempUser.addDevice(device);
 		return tempUser;
 	}
 

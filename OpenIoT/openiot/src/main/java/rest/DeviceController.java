@@ -86,10 +86,10 @@ public class DeviceController {
 		User user = em.find(User.class, idInt);
 		if (user == null)
 			throw new NotFoundException();
-		
 		user.addDevice(device);
 		
     	try {
+    		em.persist(device);
     		em.merge(user);    		
     	} catch(EntityExistsException e) {
     		return Response.status(Status.CONFLICT).build();

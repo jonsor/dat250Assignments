@@ -1,6 +1,9 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,8 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,7 +19,6 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="device")
@@ -30,19 +31,19 @@ public class Device {
 	@JsonIgnore
 	private int id;
 	
-    @ManyToOne(fetch = FetchType.LAZY) // Using lazy fetching for performance reasons
-    @JoinColumn(name = "user_id")
-    @JsonManagedReference
-    private User user;
-    
-	//@OneToOne(targetEntity=User.class)
+//    @ManyToMany(fetch = FetchType.LAZY) // Using lazy fetching for performance reasons
 //    @JoinColumn(name = "user_id")
 //    @JsonManagedReference
-	//private int ownerId;
+//	private List<User> users = new ArrayList<>();
+	
+
+    @ManyToMany(mappedBy = "devices", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Set<User> users = new HashSet<>();
     
-    @OneToMany(mappedBy = "device", targetEntity=Feedback.class, cascade = CascadeType.ALL)
-    @JsonBackReference
-    private List<Feedback> feedback;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "owner_id")
+//    @JsonManagedReference
+//    private User owner;
     
     @NotNull
 	private String name;
@@ -54,14 +55,22 @@ public class Device {
 	@NotNull
 	private boolean publicDevice;
     
-	public User getUser() {
-		return user;
+	@OneToMany(mappedBy = "device", orphanRemoval = true, cascade = CascadeType.ALL)
+	@JsonBackReference
+	private List<Feedback> feedback = new ArrayList<>();
+
+	
+	public Set<User> getUsers() {
+		return users;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 
+	public void addUser(User user) {
+		this.users.add(user);
+	}
 	public int getId() {
 		return id;
 	}
@@ -69,7 +78,7 @@ public class Device {
 //	public int getOwnerId() {
 //		return ownerId;
 //	}
-//
+
 //	public void setOwnerId(int ownerId) {
 //		this.ownerId = ownerId;
 //	}
@@ -114,13 +123,11 @@ public class Device {
 		this.publicDevice = publicDevice;
 	}
 
-//	public List<Feedback> getFeedback() {
-//		return feedback;
-//	}
-//
-//	public void setFeedback(List<Feedback> feedback) {
-//		this.feedback = feedback;
-//	}
+	public List<Feedback> getFeedback() {
+		return feedback;
+	}
 
-    
+	public void setFeedback(List<Feedback> feedback) {
+		this.feedback = feedback;
+	}
 }

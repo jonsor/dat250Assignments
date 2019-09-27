@@ -1,15 +1,19 @@
 package entities;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -18,29 +22,36 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user_table")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User {
 
 	public static final String FIND_ALL = "User.findAll";
-	
-    @Id @GeneratedValue(strategy=GenerationType.AUTO)
-    @JsonIgnore
-    private int id;
-    
-    @NotNull
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonIgnore
+	private int id;
+
+	@NotNull
 	private String uname;
-    @NotNull
+	@NotNull
 	private String password;
 	private String fname;
 	private String lname;
-	
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
-    @JsonBackReference
-	private List<Device> devices = new ArrayList<>();
 
-    public User() {}
-    
-    public User(int id, String uname, String password, String fname, String lname, List<Device> devices) {
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JsonBackReference
+    @JoinTable(
+            name = "user_devices",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "device_id")}
+    )
+	private Set<Device> devices = new HashSet<>();
+
+	public User() {
+	}
+
+	public User(int id, String uname, String password, String fname, String lname, Set<Device> devices) {
 		super();
 		this.id = id;
 		this.uname = uname;
@@ -51,15 +62,15 @@ public class User {
 	}
 
 	public void addDevice(Device device) {
-        devices.add(device);
-        device.setUser(this);
-    }
- 
-    public void removedDevice(Device device) {
-    	devices.remove(device);
-    	device.setUser(null);
-    }
-    
+		devices.add(device);
+		device.addUser(this);
+	}
+
+	public void removedDevice(Device device) {
+		devices.remove(device);
+		device.addUser(this);
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -100,11 +111,11 @@ public class User {
 		this.password = password;
 	}
 
-	public List<Device> getDevices() {
+	public Set<Device> getDevices() {
 		return devices;
 	}
 
-	public void setDevices(List<Device> devices) {
+	public void setDevices(Set<Device> devices) {
 		this.devices = devices;
 	}
 }
