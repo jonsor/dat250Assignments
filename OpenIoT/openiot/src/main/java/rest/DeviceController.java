@@ -67,7 +67,7 @@ public class DeviceController {
 	public Response getDeviceRegistrations(@PathParam("id") String id) {
 		int idInt = Integer.parseInt(id);
 	    TypedQuery<String> query = em.createQuery(
-	            "SELECT u.uname FROM User u INNER JOIN Device d ON u.id = d.user_id WHERE d.id = ?1", String.class);
+	            "SELECT u.uname FROM User u INNER JOIN Device d WHERE d.id = ?1", String.class);
 	    List<String> userNames = new ArrayList<String>(query.setParameter(1, idInt).getResultList());
 	    Gson gson = ApiHelper.getGson();
 	    String jsonString = gson.toJson(userNames);
