@@ -19,6 +19,8 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.google.gson.annotations.Expose;
 
 @Entity
 @Table(name="device")
@@ -38,6 +40,7 @@ public class Device {
 	
 
     @ManyToMany(mappedBy = "devices", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @InvisibleJson
     private Set<User> users = new HashSet<>();
     
 //	@ManyToOne(fetch = FetchType.LAZY)
@@ -45,18 +48,20 @@ public class Device {
 //    @JsonManagedReference
 //    private User owner;
     
-    @NotNull
+    @NotNull @Expose
 	private String name;
+    @Expose
 	private String imageUrl;
-	@NotNull
+	@NotNull @Expose
 	private String data;
-	@NotNull
+	@NotNull @Expose
 	private String status; 
-	@NotNull
+	@NotNull @Expose
 	private boolean publicDevice;
     
 	@OneToMany(mappedBy = "device", orphanRemoval = true, cascade = CascadeType.ALL)
 	@JsonBackReference
+	@Expose
 	private List<Feedback> feedback = new ArrayList<>();
 
 	

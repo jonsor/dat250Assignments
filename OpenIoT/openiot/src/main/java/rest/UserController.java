@@ -20,9 +20,12 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import entities.User;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import misc.ApiHelper;
+import misc.HiddenAnnotationExclusionStrategy;
 
 @Path("/users")
 @Tag(name = "User", description = "Get and create users")
@@ -39,8 +42,7 @@ public class UserController {
 		if (query == null)
 			throw new NotFoundException();
 		List<User> users = new ArrayList<User>(query.getResultList());
-		
-	    Gson gson = new Gson();
+	    Gson gson = ApiHelper.getGson();
 	    String jsonString = gson.toJson(users);
 	    
 		return Response.ok(jsonString).build();
@@ -54,7 +56,7 @@ public class UserController {
 		if (user == null)
 			throw new NotFoundException();
 	
-	    Gson gson = new Gson();
+	    Gson gson = ApiHelper.getGson();
 	    String jsonString = gson.toJson(user);
 	    
 		return Response.ok(jsonString).build();

@@ -1,7 +1,6 @@
 package entities;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,8 +16,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 
 @Entity
 @Table(name = "user_table")
@@ -32,20 +31,23 @@ public class User {
 	@JsonIgnore
 	private int id;
 
-	@NotNull
+	@NotNull @Expose
 	private String uname;
-	@NotNull
+	@NotNull @Expose
 	private String password;
+	@Expose
 	private String fname;
+	@Expose
 	private String lname;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	@JsonBackReference
     @JoinTable(
             name = "user_devices",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "device_id")}
     )
+	@InvisibleJson
+	@Expose
 	private Set<Device> devices = new HashSet<>();
 
 	public User() {

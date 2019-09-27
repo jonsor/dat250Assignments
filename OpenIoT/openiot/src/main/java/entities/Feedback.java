@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.google.gson.annotations.Expose;
 
 @Entity
 @Table(name="FEEDBACK_TABLE")
@@ -29,10 +30,12 @@ public class Feedback {
    @JsonManagedReference
    private Device device;
    
+   @Expose
    private String comment;
    
    @Min(0)
    @Max(5)
+   @Expose
    private int rating;
 
 	public int getId() {

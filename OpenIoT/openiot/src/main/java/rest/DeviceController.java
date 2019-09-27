@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import entities.Device;
 import entities.User;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import misc.ApiHelper;
 
 @Path("/devices")
 @Tag(name = "Device", description = "Get and create devices")
@@ -41,7 +42,7 @@ public class DeviceController {
 			throw new NotFoundException();
 		List<Device> devices = new ArrayList<Device>(query.getResultList());
 		
-	    Gson gson = new Gson();
+	    Gson gson = ApiHelper.getGson();
 	    String jsonString = gson.toJson(devices);
 	    
 		return Response.ok(jsonString).build();
@@ -55,7 +56,7 @@ public class DeviceController {
 		if (device == null)
 			throw new NotFoundException();
 	
-	    Gson gson = new Gson();
+	    Gson gson = ApiHelper.getGson();
 	    String jsonString = gson.toJson(device);
 	    
 		return Response.ok(jsonString).build();
@@ -68,7 +69,7 @@ public class DeviceController {
 	    TypedQuery<String> query = em.createQuery(
 	            "SELECT u.uname FROM User u INNER JOIN Device d ON u.id = d.user_id WHERE d.id = ?1", String.class);
 	    List<String> userNames = new ArrayList<String>(query.setParameter(1, idInt).getResultList());
-	    Gson gson = new Gson();
+	    Gson gson = ApiHelper.getGson();
 	    String jsonString = gson.toJson(userNames);
 	    
 		return Response.ok(jsonString).build();
