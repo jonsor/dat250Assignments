@@ -75,6 +75,20 @@ public class DeviceController {
 		return Response.ok(jsonString).build();
 	}
 	
+	@GET
+	@Path("{id}/registrations/{rid}")
+	public Response getDeviceRegistrations(@PathParam("id") String id, @PathParam("rid") String rid) {
+		int idInt = Integer.parseInt(id);
+		int ridInt = Integer.parseInt(rid);
+	    TypedQuery<String> query = em.createQuery(
+	            "SELECT u.uname FROM User u INNER JOIN Device d WHERE d.id = ?1 and d.user_id = ?2", String.class);
+	    List<String> userNames = new ArrayList<String>(query.setParameter(1, idInt).setParameter(2, ridInt).getResultList());
+	    Gson gson = ApiHelper.getGson();
+	    String jsonString = gson.toJson(userNames);
+	    
+		return Response.ok(jsonString).build();
+	}
+	
     @POST
 	@Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
