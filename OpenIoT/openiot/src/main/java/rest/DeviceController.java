@@ -23,6 +23,7 @@ import com.google.gson.Gson;
 
 import entities.Device;
 import entities.User;
+import io.swagger.annotations.ApiParam;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import misc.ApiHelper;
 
@@ -75,18 +76,23 @@ public class DeviceController {
 		return Response.ok(jsonString).build();
 	}
 	
-	@GET
+	@POST
 	@Path("{id}/registrations/{rid}")
 	public Response getDeviceRegistrations(@PathParam("id") String id, @PathParam("rid") String rid) {
 		int idInt = Integer.parseInt(id);
 		int ridInt = Integer.parseInt(rid);
-	    TypedQuery<String> query = em.createQuery(
-	            "SELECT u.uname FROM User u INNER JOIN Device d WHERE d.id = ?1 and d.user_id = ?2", String.class);
-	    List<String> userNames = new ArrayList<String>(query.setParameter(1, idInt).setParameter(2, ridInt).getResultList());
-	    Gson gson = ApiHelper.getGson();
-	    String jsonString = gson.toJson(userNames);
-	    
-		return Response.ok(jsonString).build();
+		
+		Device device = em.find(Device.class, idInt);
+		if (device == null)
+			throw new NotFoundException("Device with id " + idInt + " not found.");
+		
+		User user = em.find(User.class, ridInt);
+		if (user == null)
+			throw new NotFoundException("User with id " + ridInt + " not found.");
+		
+		user.addDevice(device);
+		
+		return Response.status(Status.CREATED).build();
 	}
 	
     @POST

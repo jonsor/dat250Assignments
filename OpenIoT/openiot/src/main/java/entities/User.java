@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -28,7 +31,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@JsonIgnore
+	@JsonIgnore @Expose
 	private int id;
 
 	@NotNull @Expose
@@ -46,10 +49,15 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "device_id")}
     )
-	@InvisibleJson
+	@JsonIgnore
 	@Expose
 	private Set<Device> devices = new HashSet<>();
-
+	
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @Expose
+    private List<Device> ownedDevices;
+    
+    
 	public User() {
 	}
 
@@ -120,4 +128,14 @@ public class User {
 	public void setDevices(Set<Device> devices) {
 		this.devices = devices;
 	}
+
+	public List<Device> getOwnedDevices() {
+		return ownedDevices;
+	}
+
+	public void setOwnedDevices(List<Device> ownedDevices) {
+		this.ownedDevices = ownedDevices;
+	}
+	
+	
 }

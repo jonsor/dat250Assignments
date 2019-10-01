@@ -11,9 +11,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -30,7 +33,7 @@ public class Device {
 	public static final String FIND_ALL = "Device.findAll";
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@JsonIgnore
+	@JsonIgnore @Expose
 	private int id;
 	
 //    @ManyToMany(fetch = FetchType.LAZY) // Using lazy fetching for performance reasons
@@ -41,12 +44,13 @@ public class Device {
 
     @ManyToMany(mappedBy = "devices", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @InvisibleJson
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
     
-//	@ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "owner_id")
-//    @JsonManagedReference
-//    private User owner;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    @JsonManagedReference
+    private User owner;
     
     @NotNull @Expose
 	private String name;
