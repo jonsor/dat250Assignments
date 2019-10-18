@@ -14,33 +14,34 @@
 	<div>
 		<f:view>
 			<div class="div-container-sender div-container-sender-button">
-				<form action="DeviceRegistration" method="post">
+					<form action="DeviceRegistration"
+						method="post">
 
-					<p>
-						User Name: <input type="text" name="name" />
-					</p>
+						<p>
+							User Name: <input type="text" name="name" />
+						</p>
 
-					<p>
-						Data: <input type="text" name="data" />
-					</p>
+						<p>
+							Data: <input type="text" name="data" />
+						</p>
 
-					<p>
-						ImageURL: <input type="text" name="ImageURL" />
-					</p>
+						<p>
+							ImageURL: <input type="text" name="ImageURL" />
+						</p>
 
-					<p>
-						PublicDevice: <input type="text" name="PublicDevice" />
-					</p>
+						<p>
+							PublicDevice: <h:selectBooleanCheckbox value = "Remember Me" id = "PublicDevice" /> 
+						</p>
 
-					<p>
-						Status: <input type="text" name="Status" />
-					</p>
+						<p>
+							Status: <input type="text" name="Status" />
+						</p>
 
-					<p>
-						<input type="submit" value="Registration" />
-					</p>
-				</form>
-			</div>
+						<p>
+							<input type="submit" value="Registration" /> 
+						</p>
+					</form>
+				</div>
 		</f:view>
 	</div>
 </body>

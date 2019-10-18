@@ -46,16 +46,16 @@ public class DeviceRegistration extends HttpServlet {
 		String name = request.getParameter("name");
 		String data = request.getParameter("data");
 		String imageUrl = request.getParameter("ImageURL");
-		String publicDevice = request.getParameter("PublicDevice");
+		Boolean publicDevice = Boolean.parseBoolean(request.getParameter("PublicDevice"));
 		String status = request.getParameter("Status");
 		
-		System.out.println(name + " " + " " + data + " " + imageUrl);
+		System.out.println(name + " " + " " + data + " " + imageUrl + " " + publicDevice + " " + status);
 		
 		Device d = new Device();
 		d.setName(name);
 		d.setData(data);
 		d.setImageUrl(imageUrl);
-		d.setPublicDevice(true);
+		d.setPublicDevice(publicDevice);
 		d.setStatus(status);
 	
 		
