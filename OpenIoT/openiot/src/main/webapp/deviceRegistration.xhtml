@@ -13,37 +13,34 @@
 	<h1>Register device</h1>
 	<div>
 		<f:view>
-			<h:form class="form-tweets">
-				<div class="div-container-sender div-container-sender-button">
-					<form action="http://localhost/servlet/DeviceRegistration"
-						method="post">
+			<div class="div-container-sender div-container-sender-button">
+				<form action="DeviceRegistration" method="post">
 
-						<p>
-							User Name: <input type="text" name="name" />
-						</p>
+					<p>
+						User Name: <input type="text" name="name" />
+					</p>
 
-						<p>
-							Data: <input type="text" name="data" />
-						</p>
+					<p>
+						Data: <input type="text" name="data" />
+					</p>
 
-						<p>
-							ImageURL: <input type="text" name="ImageURL" />
-						</p>
+					<p>
+						ImageURL: <input type="text" name="ImageURL" />
+					</p>
 
-						<p>
-							PublicDevice: <input type="text" name="PublicDevice" />
-						</p>
+					<p>
+						PublicDevice: <input type="text" name="PublicDevice" />
+					</p>
 
-						<p>
-							Status: <input type="text" name="Status" />
-						</p>
+					<p>
+						Status: <input type="text" name="Status" />
+					</p>
 
-						<p>
-							<input type="submit" value="Registration" /> <input type="reset" />
-						</p>
-					</form>
-				</div>
-			</h:form>
+					<p>
+						<input type="submit" value="Registration" />
+					</p>
+				</form>
+			</div>
 		</f:view>
 	</div>
 </body>

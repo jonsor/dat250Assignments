@@ -31,22 +31,9 @@ public class DeviceRegistration extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+				
 		RequestDispatcher rd = request.getRequestDispatcher("deviceRegistration.xhtml");
 		rd.forward(request, response);
-		response.sendRedirect("deviceRegistration.html");
-		
-		String name = request.getParameter("name");
-		String data = request.getParameter("data");
-		String imageUrl = request.getParameter("ImageURL");
-		String publicDevice = request.getParameter("PublicDevice");
-		String status = request.getParameter("Status");
-		
-		Device d = new Device();
-		d.setName(name);
-		d.setData(data);
-		d.setImageUrl(imageUrl);
-		d.setPublicDevice(true);
-		d.setStatus(status);
 		
 	}
 
@@ -55,7 +42,22 @@ public class DeviceRegistration extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		String name = request.getParameter("name");
+		String data = request.getParameter("data");
+		String imageUrl = request.getParameter("ImageURL");
+		String publicDevice = request.getParameter("PublicDevice");
+		String status = request.getParameter("Status");
+		
+		System.out.println(name + " " + " " + data + " " + imageUrl);
+		
+		Device d = new Device();
+		d.setName(name);
+		d.setData(data);
+		d.setImageUrl(imageUrl);
+		d.setPublicDevice(true);
+		d.setStatus(status);
+	
 		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
