@@ -18,6 +18,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+
 import com.google.gson.Gson;
 
 import entities.Device;
@@ -76,20 +84,37 @@ public class DeviceRegistration extends HttpServlet {
 
 		String s = request.getRequestURL().toString();
 		s = s.substring(0, s.length() - request.getRequestURI().toString().length());
-		URL url = new URL(s + "/openiot/api/devices/1");
+		String url = s + "/openiot/api/devices/1";
 
 		System.out.println(url);
 		
+		/*
 		HttpURLConnection con = (HttpURLConnection)url.openConnection();
 
 		con.setRequestMethod("POST");
 		con.setRequestProperty("Content-Type", "application/json; utf-8");
 		con.setRequestProperty("Accept", "application/json");
 		con.setDoOutput(true);
+		*/
 
 		String str = ApiHelper.getGson().toJson(d);
 		//str = "{\"id\":0,\"name\":\"string\",\"imageUrl\":\"string\",\"data\":\"string\",\"status\":\"string\",\"publicDevice\":true,\"feedback\":[{\"comment\":\"string\",\"rating\":0}]}";
 		
+		
+		try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
+
+			HttpPost req = new HttpPost(url);
+			req.setHeader("User-Agent", "Java client");
+			req.setHeader("Accept", "application/json");
+			req.setHeader("Content-type", "application/json");
+			req.setEntity(new StringEntity(str));
+
+			CloseableHttpResponse res = client.execute(req);
+		    System.out.println(res.getStatusLine().getStatusCode());
+		    client.close();
+        }
+		
+		/*
 		System.out.println(str);
 		OutputStream os = con.getOutputStream();
 		OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
@@ -98,6 +123,7 @@ public class DeviceRegistration extends HttpServlet {
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!___________________________________________!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		System.out.println(con.getResponseMessage());
 
+		
 		try(BufferedReader br = new BufferedReader(
 				new InputStreamReader(con.getInputStream(), "utf-8"))) {
 			StringBuilder res = new StringBuilder();
@@ -109,6 +135,7 @@ public class DeviceRegistration extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println("Did not work; Error: " + e.toString());
 		}
+		*/
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();

@@ -74,6 +74,11 @@
 	    <artifactId>swagger-annotations</artifactId>
 	    <version>1.5.23</version>
 	</dependency>
+	<dependency>
+    	<groupId>org.apache.httpcomponents</groupId>
+    	<artifactId>httpclient</artifactId>
+    	<version>4.5.10</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>openiot</finalName>
