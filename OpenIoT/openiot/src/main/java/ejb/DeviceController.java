@@ -8,15 +8,8 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import javax.persistence.TypedQuery;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.core.Response;
-
-import com.google.gson.Gson;
 
 import entities.Device;
-import entities.Feedback;
-import entities.User;
 
 @Named(value = "deviceController")
 @RequestScoped
