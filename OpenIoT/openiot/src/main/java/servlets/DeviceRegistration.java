@@ -87,19 +87,8 @@ public class DeviceRegistration extends HttpServlet {
 		String url = s + "/openiot/api/devices/1";
 
 		System.out.println(url);
-		
-		/*
-		HttpURLConnection con = (HttpURLConnection)url.openConnection();
-
-		con.setRequestMethod("POST");
-		con.setRequestProperty("Content-Type", "application/json; utf-8");
-		con.setRequestProperty("Accept", "application/json");
-		con.setDoOutput(true);
-		*/
 
 		String str = ApiHelper.getGson().toJson(d);
-		//str = "{\"id\":0,\"name\":\"string\",\"imageUrl\":\"string\",\"data\":\"string\",\"status\":\"string\",\"publicDevice\":true,\"feedback\":[{\"comment\":\"string\",\"rating\":0}]}";
-		
 		
 		try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
 
@@ -113,29 +102,6 @@ public class DeviceRegistration extends HttpServlet {
 		    System.out.println(res.getStatusLine().getStatusCode());
 		    client.close();
         }
-		
-		/*
-		System.out.println(str);
-		OutputStream os = con.getOutputStream();
-		OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
-		osw.write(str);          
-		
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!___________________________________________!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		System.out.println(con.getResponseMessage());
-
-		
-		try(BufferedReader br = new BufferedReader(
-				new InputStreamReader(con.getInputStream(), "utf-8"))) {
-			StringBuilder res = new StringBuilder();
-			String responseLine = null;
-			while ((responseLine = br.readLine()) != null) {
-				res.append(responseLine.trim());
-			}
-			System.out.println(res.toString());
-		} catch (Exception e) {
-			System.out.println("Did not work; Error: " + e.toString());
-		}
-		*/
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
