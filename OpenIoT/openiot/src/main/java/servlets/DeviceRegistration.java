@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 
 import entities.Device;
 import entities.Feedback;
+import entities.User;
 import misc.ApiHelper;
 
 /**
@@ -52,8 +53,12 @@ public class DeviceRegistration extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher rd = request.getRequestDispatcher("deviceRegistration.xhtml");
-		rd.forward(request, response);
+		if(request.getSession().getAttribute("user") == null) {
+			response.sendRedirect("/openiot/Login");
+		}else {
+			RequestDispatcher rd = request.getRequestDispatcher("deviceRegistration.xhtml");
+			rd.forward(request, response);		
+		}
 
 	}
 
@@ -84,7 +89,10 @@ public class DeviceRegistration extends HttpServlet {
 
 		String s = request.getRequestURL().toString();
 		s = s.substring(0, s.length() - request.getRequestURI().toString().length());
-		String url = s + "/openiot/api/devices/1";
+		
+		User user = (User) request.getSession().getAttribute("user");
+		
+		String url = s + "/openiot/api/devices/" + user.getId();
 
 		System.out.println(url);
 
