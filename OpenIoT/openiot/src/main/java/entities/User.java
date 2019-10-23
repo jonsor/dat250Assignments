@@ -71,14 +71,24 @@ public class User {
 		this.devices = devices;
 	}
 
-	public void addDevice(Device device) {
+	public void addOwnedDevice(Device device) {
+		ownedDevices.add(device);
+		device.setOwner(this);
+	}
+
+	public void removedOwnedDevice(Device device) {
+		ownedDevices.remove(device);
+//		device.addUser(this);
+	}
+	
+	public void registerDevice(Device device) {
 		devices.add(device);
 		device.addUser(this);
 	}
 
-	public void removedDevice(Device device) {
+	public void unregisterDevice(Device device) {
 		devices.remove(device);
-		device.addUser(this);
+		device.removeUser(this);
 	}
 
 	public int getId() {

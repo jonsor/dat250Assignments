@@ -80,17 +80,21 @@ public class Device {
 	public void addUser(User user) {
 		this.users.add(user);
 	}
+	
+	public void removeUser(User user) {
+		this.users.remove(user);
+	}
 	public int getId() {
 		return id;
 	}
 
-//	public int getOwnerId() {
-//		return ownerId;
-//	}
+	public User getOwner() {
+		return owner;
+	}
 
-//	public void setOwnerId(int ownerId) {
-//		this.ownerId = ownerId;
-//	}
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
 
 	public String getName() {
 		return name;

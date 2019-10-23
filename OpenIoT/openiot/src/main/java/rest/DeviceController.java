@@ -90,7 +90,7 @@ public class DeviceController {
 		if (user == null)
 			throw new NotFoundException("User with id " + ridInt + " not found.");
 		
-		user.addDevice(device);
+		user.registerDevice(device);
 		
 		return Response.status(Status.CREATED).build();
 	}
@@ -107,7 +107,7 @@ public class DeviceController {
 		User user = em.find(User.class, idInt);
 		if (user == null)
 			throw new NotFoundException();
-		user.addDevice(device);
+		user.addOwnedDevice(device);
 		
     	try {
     		em.persist(device);
