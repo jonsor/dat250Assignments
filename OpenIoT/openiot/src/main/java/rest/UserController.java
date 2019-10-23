@@ -62,6 +62,23 @@ public class UserController {
 		return Response.ok(jsonString).build();
 	}
 	
+	@GET
+	@Path("{uname}/{pass}")
+	public Response get(@PathParam("uname") String uname, @PathParam("pass") String pass) {
+		
+	    TypedQuery<User> query = em.createQuery(
+	            "SELECT u FROM User u WHERE u.uname =?1 AND u.password=?2 ", User.class);
+	    User user = query.setParameter(1, uname).setParameter(2, pass).getSingleResult();
+	    
+		if (user == null)
+			throw new NotFoundException();
+	
+	    Gson gson = ApiHelper.getGson();
+	    String jsonString = gson.toJson(user);
+	    
+		return Response.ok(jsonString).build();
+	}
+	
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)

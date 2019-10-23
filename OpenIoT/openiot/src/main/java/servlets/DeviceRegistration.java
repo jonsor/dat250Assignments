@@ -103,12 +103,13 @@ public class DeviceRegistration extends HttpServlet {
 		    client.close();
         }
 
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-
-		out.println("<html><body>" );
-		out.println("<p>Hello. The device has been registrered </p> "); 
-		out.println("</body></html>");
+		response.sendRedirect("/openiot/welcome");
+//		response.setContentType("text/html");
+//		PrintWriter out = response.getWriter();
+//
+//		out.println("<html><body>" );
+//		out.println("<p>Hello. The device has been registrered </p> "); 
+//		out.println("</body></html>");
 
 	}
 

@@ -1,43 +1,53 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core" 
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
-    	<link rel="stylesheet" type="text/css" href="css/style.css">	</link>	
-       <title>Welcome page</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css"></link>
+	<title>Welcome page</title>
 </h:head>
 
 <h:body>
-<h1>Welcome! #{user}</h1>
+	<h1>Welcome! #{user.uname}</h1>
 
-    <h:form id="uf">
-        <h:inputText id="name" value="#{searchinput}"/>
-        <h:commandButton action="#{userBean.processAction}" value="Submit"/>
-    </h:form>
-    
- 		<h:dataTable value="#{devices}" var="o"
-    			styleClass="order-table"
-    			headerClass="order-table-header"
-    			rowClasses="order-table-odd-row,order-table-even-row">
+	<form action="welcome" method="post">
+		<p>
+			Search: <input type="text" name="search" />
+		</p>
+		<p>
+			<input type="submit" value="Search" />
+		</p>
+	</form>
+	
+	<form action="welcome" method="post">
+		<p>
+			<input type="submit" value="Register new Device" name="registerNewDevice"/>
+		</p>
+	</form>
 
-    			<h:column>
-    				<f:facet name="header">Name</f:facet>
+	<h:dataTable value="#{devices}" var="o" styleClass="order-table"
+		headerClass="order-table-header"
+		rowClasses="order-table-odd-row,order-table-even-row">
+
+		<h:column>
+			<f:facet name="header">Name</f:facet>
     				#{o.name}
     			</h:column>
-    			
-    			<h:column>
-    				<f:facet name="header">Status</f:facet>
+
+		<h:column>
+			<f:facet name="header">Status</f:facet>
     				#{o.status}
     			</h:column>
-    			
-    			<h:column>
-    				<f:facet name="header">Registered</f:facet>
-    				<h:commandButton value="Register" type="submit" action="#{user.goLoginPage}" />
-    			</h:column>
-    		
-    		</h:dataTable>
+
+		<h:column>
+			<f:facet name="header">Registered</f:facet>
+			<h:commandButton value="Register" type="submit"
+				action="#{user.goLoginPage}" />
+		</h:column>
+
+	</h:dataTable>
 </h:body>
 
 </html>
