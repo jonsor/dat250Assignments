@@ -10,7 +10,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import entities.Device;
-import entities.Feedback;
 import entities.User;
 
 @Named(value = "userController")
@@ -52,12 +51,6 @@ public class UserController implements Serializable {
 		tempDevice.setPublicDevice(true);
 		tempDevice.setStatus("online");
 		tempUser.addDevice(tempDevice);
-//		List<Feedback> feedback = new ArrayList<Feedback>();
-//		Feedback fb = new Feedback();
-//		fb.setComment("This device rules!");
-//		fb.setRating(4);
-//		feedback.add(fb);
-//		tempDevice.setFeedback(feedback);
 		return tempUser;
 	}
 	
