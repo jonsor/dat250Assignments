@@ -99,14 +99,11 @@ public class UserLogin extends HttpServlet {
 		String path = servletUrl.replace(request.getServletPath().toString(),"");
 		String query = "/api/users/" + uname + "/" + pass;
 		String responseJson = HttpRequestHelper.httpGetRequest(path, query);
-		User user = ApiHelper.getGson().fromJson(responseJson, User.class);
-		System.out.println(responseJson);
-		System.out.println(user.getPassword() + "  " + user.getUname());
+		
+		if (responseJson != null && !responseJson.isEmpty()) {
 
-		String password = user.getPassword();
-		if (password.equals(pass)) {
-
-			System.out.println(user.getUname());
+			User user = ApiHelper.getGson().fromJson(responseJson, User.class);
+			System.out.println(user.getPassword() + "  " + user.getUname());
 			request.getSession().setAttribute("user", user);
 			response.sendRedirect("/openiot/welcome");
 
