@@ -62,58 +62,54 @@ public class UserLogin extends HttpServlet {
 
 		//System.out.println(url);
 		String password = "";
-		 try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+		try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
 
-	            //HTTP GET method
-	            HttpGet httpget = new HttpGet(url);
-	            System.out.println("Executing request " + httpget.getRequestLine());
+			//HTTP GET method
+			HttpGet httpget = new HttpGet(url);
+			System.out.println("Executing request " + httpget.getRequestLine());
 
-	            // Create a custom response handler
-	            ResponseHandler < String > responseHandler = res -> {
-	                int status = res.getStatusLine().getStatusCode();
-	                if (status >= 200 && status < 300) {
-	                    HttpEntity entity = res.getEntity();
-	                    return entity != null ? EntityUtils.toString(entity) : null;
-	                } else {
-	                    throw new ClientProtocolException("Unexpected response status: " + status);
-	                }
-	            };
-	            String responseBody = httpclient.execute(httpget, responseHandler);
-	            System.out.println("----------------------------------------");
-	            System.out.println(responseBody);
-	            
-	            JsonObject jobj = new JsonParser().parse(responseBody).getAsJsonObject();
-	            
-	            password = jobj.get("password").getAsString();
-		 }
-		 
-		 System.out.println(password + "  " + pass);
-		 
-		 if (password.equals(pass)) {
-			 
-			 System.out.println("Did it boys ");
-			 Cookie userCookie = new Cookie("loggedInId", uname);
-			 userCookie.setMaxAge(60*60*24*365); //Store cookie for 1 year
-			 userCookie.setDomain("localhost:8080");
-			 response.addCookie(userCookie);
-			 
-			 response.setContentType("text/html");
-				PrintWriter out = response.getWriter();
+			// Create a custom response handler
+			ResponseHandler < String > responseHandler = res -> {
+				int status = res.getStatusLine().getStatusCode();
+				if (status >= 200 && status < 300) {
+					HttpEntity entity = res.getEntity();
+					return entity != null ? EntityUtils.toString(entity) : null;
+				} else {
+					throw new ClientProtocolException("Unexpected response status: " + status);
+				}
+			};
+			String responseBody = httpclient.execute(httpget, responseHandler);
+			System.out.println("----------------------------------------");
+			System.out.println(responseBody);
 
-				out.println("<html><body>" );
-				out.println("<p>Hello " + uname + ". You have been logged in </p> "); 
-				out.println("</body></html>");
-		 } else {
-			 System.out.println("oh no ");
-			 response.setContentType("text/html");
-				PrintWriter out = response.getWriter();
+			JsonObject jobj = new JsonParser().parse(responseBody).getAsJsonObject();
 
-				out.println("<html><body>" );
-				out.println("<p>Password or username was wrong </p> "); 
-				out.println("</body></html>");
-		 }
-		
-		
+			password = jobj.get("password").getAsString();
+		}
+
+		System.out.println(password + "  " + pass);
+
+		if (password.equals(pass)) {
+
+			System.out.println("Did it boys ");
+			Cookie userCookie = new Cookie("loggedInId", uname);
+			userCookie.setMaxAge(60*60*24*365); //Store cookie for 1 year
+			userCookie.setDomain("localhost:8080");
+			response.addCookie(userCookie);
+
+			RequestDispatcher rd = request.getRequestDispatcher("Index");
+			rd.forward(request, response);
+		} else {
+			System.out.println("oh no ");
+			response.setContentType("text/html");
+			PrintWriter out = response.getWriter();
+
+			out.println("<html><body>" );
+			out.println("<p>Password or username was wrong </p> "); 
+			out.println("</body></html>");
+		}
+
+
 
 	}
 
