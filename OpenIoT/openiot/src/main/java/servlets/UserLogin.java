@@ -66,38 +66,6 @@ public class UserLogin extends HttpServlet {
 		String uname = request.getParameter("uname");
 		String pass = request.getParameter("password");
 
-		//		String s = request.getRequestURL().toString();
-		//		s = s.substring(0, s.length() - request.getRequestURI().toString().length());
-		//		String url = s + "/openiot/api/users/" + uname;
-
-		//System.out.println(url);
-		//		String password = "";
-		//		 try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-		//
-		//	            //HTTP GET method
-		//	            HttpGet httpget = new HttpGet(url);
-		//	            System.out.println("Executing request " + httpget.getRequestLine());
-		//
-		//	            // Create a custom response handler
-		//	            ResponseHandler < String > responseHandler = res -> {
-		//	                int status = res.getStatusLine().getStatusCode();
-		//	                if (status >= 200 && status < 300) {
-		//	                    HttpEntity entity = res.getEntity();
-		//	                    return entity != null ? EntityUtils.toString(entity) : null;
-		//	                } else {
-		//	                    throw new ClientProtocolException("Unexpected response status: " + status);
-		//	                }
-		//	            };
-		//	            String responseBody = httpclient.execute(httpget, responseHandler);
-		//	            System.out.println("----------------------------------------");
-		//	            System.out.println(responseBody);
-		//		    	user = ApiHelper.getGson().fromJson(responseBody, User.class);
-		////	            JsonObject jobj = new JsonParser().parse(responseBody).getAsJsonObject();
-		//	            
-		////	            password = jobj.get("password").getAsString();
-		//		    	password = user.getPassword();
-		//		 }
-
 		String path = HttpRequestHelper.getBasePath(request);
 		
 		String hashedPass = "";
@@ -119,18 +87,6 @@ public class UserLogin extends HttpServlet {
 			request.getSession().setAttribute("user", user);
 			response.sendRedirect("/openiot/welcome");
 
-			//			 System.out.println("Did it boys ");
-			//			 Cookie userCookie = new Cookie("loggedInId", uname);
-			//			 userCookie.setMaxAge(60*60*24*365); //Store cookie for 1 year
-			//			 userCookie.setDomain("localhost:8080");
-			//			 response.addCookie(userCookie);
-			//			 
-			//			 response.setContentType("text/html");
-			//				PrintWriter out = response.getWriter();
-			//
-			//				out.println("<html><body>" );
-			//				out.println("<p>Hello " + uname + ". You have been logged in </p> "); 
-			//				out.println("</body></html>");
 		} else {
 			System.out.println("oh no ");
 			response.setContentType("text/html");

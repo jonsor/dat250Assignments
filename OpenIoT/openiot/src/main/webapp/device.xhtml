@@ -31,19 +31,37 @@
 		</h:dataTable>
 		<form action="device" method="post">
 			<p>
-				Add feedback: <input type="text" name="feedback" />
-			<select name="rating" size="1">	
-				<option value="1">1</option> 
-				<option value="2">2</option> 
-				<option value="3">3</option> 
-				<option value="4">4</option> 
-				<option value="5">5</option> 
-			</select> 
+				Add feedback: <input type="text" name="feedback" /> <select
+					name="rating" size="1">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>
 			</p>
 			<p>
 				<input type="submit" value="submit" />
 			</p>
 		</form>
+	</div>
+
+	<div>
+		<h2>Registered:</h2>
+		<h:dataTable value="#{device.feedback}" var="o"
+			styleClass="order-table" headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-even-row">
+
+			<h:column>
+				<f:facet name="header">Comment</f:facet>
+    				#{o.comment}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header">Rating</f:facet>
+    				#{o.rating}
+    			</h:column>
+		</h:dataTable>
 	</div>
 </h:body>
 
