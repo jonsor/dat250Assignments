@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 public class HttpRequestHelper {
 
@@ -26,5 +27,10 @@ public class HttpRequestHelper {
 	    	responseJson = rd.lines().collect(Collectors.joining());
 	    }
 	    return responseJson;
+	}
+	
+	public static String getBasePath(HttpServletRequest request) {
+		String servletUrl = request.getRequestURL().toString();
+		return servletUrl.replace(request.getServletPath().toString(),"");
 	}
 }

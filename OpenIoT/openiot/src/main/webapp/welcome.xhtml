@@ -46,6 +46,14 @@
 			<h:commandButton value="Register" type="submit"
 				action="#{user.goLoginPage}" />
 		</h:column>
+		
+		<h:column>
+			<f:facet name="header">View</f:facet>
+			<form action="welcome" method="post">
+				<input type="hidden" value="#{o.id}" name="selectedDeviceId" />
+				<input type="submit" value="View" name="deviceSelected"/>
+			</form>
+		</h:column>
 
 	</h:dataTable>
 </h:body>

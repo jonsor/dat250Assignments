@@ -79,7 +79,7 @@ public class UserTest {
 		fb.setRating(4);
 		feedback.add(fb);
 //		tempDevice.setFeedback(feedback);
-		tempUser.addDevice(device);
+		tempUser.addOwnedDevice(device);
 		return tempUser;
 	}
 

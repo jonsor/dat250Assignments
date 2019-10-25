@@ -50,7 +50,7 @@ public class UserController implements Serializable {
 //		tempDevice.setOwnerId(6);
 		tempDevice.setPublicDevice(true);
 		tempDevice.setStatus("online");
-		tempUser.addDevice(tempDevice);
+		tempUser.addOwnedDevice(tempDevice);
 		return tempUser;
 	}
 	

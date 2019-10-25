@@ -2,6 +2,8 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -28,6 +30,7 @@ import entities.Device;
 import entities.User;
 import misc.ApiHelper;
 import misc.HttpRequestHelper;
+import misc.Security;
 
 /**
  * Servlet implementation class Registration
@@ -95,8 +98,17 @@ public class UserLogin extends HttpServlet {
 		//		    	password = user.getPassword();
 		//		 }
 
-		String servletUrl = request.getRequestURL().toString();
-		String path = servletUrl.replace(request.getServletPath().toString(),"");
+		String path = HttpRequestHelper.getBasePath(request);
+		
+		String hashedPass = "";
+		try {
+			hashedPass = Security.generateHash(pass);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (InvalidKeySpecException e) {
+			e.printStackTrace();
+		}
+		System.out.println("hashedPass: " + hashedPass);
 		String query = "/api/users/" + uname + "/" + pass;
 		String responseJson = HttpRequestHelper.httpGetRequest(path, query);
 		

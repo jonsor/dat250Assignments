@@ -22,6 +22,7 @@ import javax.ws.rs.core.Response.Status;
 import com.google.gson.Gson;
 
 import entities.Device;
+import entities.Feedback;
 import entities.User;
 import io.swagger.annotations.ApiParam;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -91,6 +92,21 @@ public class DeviceController {
 			throw new NotFoundException("User with id " + ridInt + " not found.");
 		
 		user.registerDevice(device);
+		
+		return Response.status(Status.CREATED).build();
+	}
+	
+	@POST
+	@Path("{id}/feedback")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response addFeedbackToDevice(@PathParam("id") String id, Feedback feedback) {
+		int idInt = Integer.parseInt(id);
+		
+		Device device = em.find(Device.class, idInt);
+		if (device == null)
+			throw new NotFoundException("Device with id " + idInt + " not found.");
+		
+		device.addFeedback(feedback);
 		
 		return Response.status(Status.CREATED).build();
 	}

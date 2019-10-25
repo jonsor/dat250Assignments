@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<link rel="stylesheet" type="text/css" href="css/style.css"></link>
+	<title>Welcome page</title>
+</h:head>
+
+<h:body>
+	<h1>#{device.name}</h1>
+	<h3>Status: #{device.status}</h3>
+
+	<div>
+		<h2>Feedback:</h2>
+		<h:dataTable value="#{device.feedback}" var="o"
+			styleClass="order-table" headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-even-row">
+
+			<h:column>
+				<f:facet name="header">Comment</f:facet>
+    				#{o.comment}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header">Rating</f:facet>
+    				#{o.rating}
+    			</h:column>
+		</h:dataTable>
+		<form action="device" method="post">
+			<p>
+				Add feedback: <input type="text" name="feedback" />
+			<select name="rating" size="1">	
+				<option value="1">1</option> 
+				<option value="2">2</option> 
+				<option value="3">3</option> 
+				<option value="3">4</option> 
+				<option value="3">5</option> 
+			</select> 
+			</p>
+			<p>
+				<input type="submit" value="submit" />
+			</p>
+		</form>
+	</div>
+</h:body>
+
+</html>

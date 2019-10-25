@@ -47,8 +47,7 @@ public class WelcomePageServlet extends HttpServlet {
 
 //		request.setAttribute("user", "UserName");
 		
-		String servletUrl = request.getRequestURL().toString();
-		String path = servletUrl.replace(request.getServletPath().toString(),"");
+		String path = HttpRequestHelper.getBasePath(request);
 		String query = "/api/devices";
     	String responseJson = HttpRequestHelper.httpGetRequest(path, query);
     	List<Device> devices = ApiHelper.getGson().fromJson(responseJson, new TypeToken<List<Device>>(){}.getType());
@@ -62,7 +61,6 @@ public class WelcomePageServlet extends HttpServlet {
 	    
 	    request.getRequestDispatcher("welcome.xhtml").forward(request, response);
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -70,15 +68,19 @@ public class WelcomePageServlet extends HttpServlet {
 		
 		System.out.println("doPost!");
 		String search = request.getParameter("search");
+		String deviceSelected = request.getParameter("deviceSelected");
+		String selectedDeviceId = request.getParameter("selectedDeviceId");
 		
 		String registerNew = request.getParameter("registerNewDevice");
 		
-        if (registerNew != null && registerNew.equals("Register new Device")) {
+		if(deviceSelected != null && selectedDeviceId != null) {
+			request.getSession().setAttribute("deviceId", selectedDeviceId);
+			response.sendRedirect("/openiot/device");
+		}else if (registerNew != null && registerNew.equals("Register new Device")) {
             response.sendRedirect("/openiot/DeviceRegistration");
         }else if(search != null) {
         	doGet(request, response);        	
         }
-        
 	}
 
 }

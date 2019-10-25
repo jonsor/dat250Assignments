@@ -143,4 +143,10 @@ public class Device {
 	public void setFeedback(List<Feedback> feedback) {
 		this.feedback = feedback;
 	}
+
+	public void addFeedback(Feedback feedback) {
+		this.feedback.add(feedback);
+		feedback.addDevice(this);
+		
+	}
 }
