@@ -49,6 +49,12 @@ public class DeviceServlet extends HttpServlet {
     	String responseJson = HttpRequestHelper.httpGetRequest(path, query);
     	Device device = ApiHelper.getGson().fromJson(responseJson, Device.class);
     	
+    	String reqistrationsQuery = "/api/devices/"+ deviceId + "/registrations";
+    	String registrationsJson = HttpRequestHelper.httpGetRequest(path, reqistrationsQuery);
+    	List<String> registeredUsers = ApiHelper.getGson().fromJson(registrationsJson, new TypeToken<List<String>>(){}.getType());
+    	
+    	System.out.println("Num registered to device: " + registeredUsers.size());
+    	request.setAttribute("registeredUsers", registeredUsers);
     	request.setAttribute("device", device);
 	    request.getRequestDispatcher("device.xhtml").forward(request, response);
 	}

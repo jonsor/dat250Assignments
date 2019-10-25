@@ -48,18 +48,13 @@
 
 	<div>
 		<h2>Registered:</h2>
-		<h:dataTable value="#{device.feedback}" var="o"
+		<h:dataTable value="#{registeredUsers}" var="username"
 			styleClass="order-table" headerClass="order-table-header"
 			rowClasses="order-table-odd-row,order-table-even-row">
 
 			<h:column>
-				<f:facet name="header">Comment</f:facet>
-    				#{o.comment}
-    			</h:column>
-
-			<h:column>
-				<f:facet name="header">Rating</f:facet>
-    				#{o.rating}
+				<f:facet name="header">Username</f:facet>
+    				#{username}
     			</h:column>
 		</h:dataTable>
 	</div>

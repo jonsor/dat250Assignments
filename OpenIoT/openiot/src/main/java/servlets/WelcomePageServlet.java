@@ -45,7 +45,10 @@ public class WelcomePageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-//		request.setAttribute("user", "UserName");
+		if(request.getSession().getAttribute("user") == null) {
+			response.sendRedirect("/openiot/Login");
+			return;
+		}
 		
 		String path = HttpRequestHelper.getBasePath(request);
 		String query = "/api/devices";
