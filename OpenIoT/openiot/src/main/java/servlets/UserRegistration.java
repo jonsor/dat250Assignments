@@ -89,10 +89,7 @@ public class UserRegistration extends HttpServlet {
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-
-		out.println("<html><body>" );
-		out.println("<p>Hello " + uname + ". Your account has been registrered </p> "); 
-		out.println("</body></html>");
+		response.sendRedirect("/openiot/Login");
 
 	}
 

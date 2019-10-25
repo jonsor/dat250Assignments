@@ -65,39 +65,44 @@ public class UserLogin extends HttpServlet {
 
 		String uname = request.getParameter("uname");
 		String pass = request.getParameter("password");
+		String reg = request.getParameter("registerNewUser");
 
-		String path = HttpRequestHelper.getBasePath(request);
-		
-		String hashedPass = "";
-		try {
-			hashedPass = Security.generateHash(pass);
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (InvalidKeySpecException e) {
-			e.printStackTrace();
-		}
-		System.out.println("hashedPass: " + hashedPass);
-		String query = "/api/users/" + uname + "/" + pass;
-		String responseJson = HttpRequestHelper.httpGetRequest(path, query);
-		
-		if (responseJson != null && !responseJson.isEmpty()) {
-
-			User user = ApiHelper.getGson().fromJson(responseJson, User.class);
-			System.out.println(user.getPassword() + "  " + user.getUname());
-			request.getSession().setAttribute("user", user);
-			response.sendRedirect("/openiot/welcome");
-
+		if (reg != null && reg.equals("Registration")) {
+			response.sendRedirect("/openiot/UserRegistration");
 		} else {
-			System.out.println("oh no ");
-			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
 
-			out.println("<html><body>" );
-			out.println("<p>Password or username was wrong </p> "); 
-			out.println("</body></html>");
+			String path = HttpRequestHelper.getBasePath(request);
+
+			String hashedPass = "";
+			try {
+				hashedPass = Security.generateHash(pass);
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			} catch (InvalidKeySpecException e) {
+				e.printStackTrace();
+			}
+			System.out.println("hashedPass: " + hashedPass);
+			String query = "/api/users/" + uname + "/" + pass;
+			String responseJson = HttpRequestHelper.httpGetRequest(path, query);
+
+			if (responseJson != null && !responseJson.isEmpty()) {
+
+				User user = ApiHelper.getGson().fromJson(responseJson, User.class);
+				System.out.println(user.getPassword() + "  " + user.getUname());
+				request.getSession().setAttribute("user", user);
+				response.sendRedirect("/openiot/welcome");
+
+			} else {
+				System.out.println("oh no ");
+				response.setContentType("text/html");
+				PrintWriter out = response.getWriter();
+
+				out.println("<html><body>" );
+				out.println("<p>Password or username was wrong </p> "); 
+				out.println("</body></html>");
+			}
+
 		}
-
-
 
 	}
 
