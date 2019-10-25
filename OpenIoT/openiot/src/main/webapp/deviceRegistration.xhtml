@@ -5,45 +5,73 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <h:head>
-	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<title>Registration</title>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+
+
+	<!-- Bootstrap core CSS -->
+	<h:outputStylesheet name="bootstrap-4.3.1-dist/css/bootstrap.min.css" />
+	<f:verbatim>
+	</f:verbatim>
+	<ui:insert name="head" />
 </h:head>
 
 <body>
+	<ui:insert name="body" />
+
 	<h1>Register device</h1>
 	<div>
 		<f:view>
-			<div class="div-container-sender div-container-sender-button">
-				<form action="DeviceRegistration" method="post">
+			<div class="card">
+				<div class="card-body">
+					<div class="form-group card" style="width: 35rem; padding: 2rem;">
+						<form action="DeviceRegistration" method="post">
 
-					<p>
-						User Name: <input type="text" name="name" />
-					</p>
+					<label for="searchbar">Search</label> <input class="form-control"
+							id="searchbar" placeholder="Cooldevice.." type="text"
+							name="search" />
+							<p>
+								<label for="username">User Name</label>  <input class="form-control" id="username"  placeholder="User name" type="text" name="name" />
+							</p>
 
-					<p>
-						Data: <input type="text" name="data" />
-					</p>
+							<p>
+								<label for="data">Data</label> <input class="form-control" id="data" placeholder="www.device.com" type="text" name="data" />
+							</p>
 
-					<p>
-						ImageURL: <input type="text" name="ImageURL" />
-					</p>
+							<p>
+								<label for="imageurl">ImageUrl</label> <input class="form-control" id="imageurl" placeholder="www.deviceImage.com" type="text" name="ImageURL" />
+							</p>
 
-					<p>
-						PublicDevice:
-						<h:selectBooleanCheckbox value="Remember Me" id="PublicDevice" />
-					</p>
+							<p>
+								<div class="custom-control custom-checkbox">
+								    <input type="checkbox" class="custom-control-input" value="Remember Me" id="PublicDevice"/>
+    								<label class="custom-control-label" for="PublicDevice">Public device</label>
+								</div>
+							</p>
 
-					<p>
-						Status: <input type="text" name="Status" />
-					</p>
+							<p>
+								<label for="status">Status</label> <input class="form-control" id="status" placeholder="online" type="text" name="Status" />
+							</p>
 
-					<p>
-						<input type="submit" value="Registration" />
-					</p>
-				</form>
+							<p>
+								<input class="btn btn-primary" type="submit" value="Registration" />
+							</p>
+						</form>
+					</div>
+				</div>
 			</div>
 		</f:view>
 	</div>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<h:outputScript name="bootstrap-4.3.1-dist/js/bootstrap.min.js" />
 </body>
 
 </html>

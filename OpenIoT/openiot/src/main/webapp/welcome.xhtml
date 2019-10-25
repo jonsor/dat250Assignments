@@ -4,59 +4,85 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	
+
 <h:head>
-	<link rel="stylesheet" type="text/css" href="css/style.css"></link>
 	<title>Welcome page</title>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+
+
+	<!-- Bootstrap core CSS -->
+	<h:outputStylesheet name="bootstrap-4.3.1-dist/css/bootstrap.min.css" />
+	<f:verbatim>
+	</f:verbatim>
+	<ui:insert name="head" />
 </h:head>
 
 <h:body>
-	<h1>Welcome! #{user.uname}</h1>
+	<ui:insert name="body" />
 
-	<form action="welcome" method="post">
-		<p>
-			Search: <input type="text" name="search" />
-		</p>
-		<p>
-			<input type="submit" value="Search" />
-		</p>
-	</form>
-	
-	<form action="welcome" method="post">
-		<p>
-			<input type="submit" value="Register new Device" name="registerNewDevice"/>
-		</p>
-	</form>
+	<div class="card">
+		<div class="card-body">
+			<h1>Welcome! #{user.uname}</h1>
+			<div class="form-group card" style="width: 35rem; padding: 2rem;">
+				<form action="welcome" method="post">
+					<p>
+						<label for="searchbar">Search</label> <input class="form-control"
+							id="searchbar" placeholder="Cooldevice.." type="text"
+							name="search" />
+					</p>
+					<p>
+						<input class="btn btn-primary" type="submit" value="Search" />
+					</p>
+				</form>
 
-	<h:dataTable value="#{devices}" var="o" styleClass="order-table"
-		headerClass="order-table-header"
-		rowClasses="order-table-odd-row,order-table-even-row">
+				<form action="welcome" method="post">
+					<p>
+						<input class="btn btn-primary" type="submit"
+							value="Register new Device" name="registerNewDevice" />
+					</p>
+				</form>
+			</div>
+			<div class="card" style="width: 45rem; padding: 2rem;">
+				<h:dataTable class="table table-striped" value="#{devices}" var="o">
 
-		<h:column>
-			<f:facet name="header">Name</f:facet>
+					<h:column>
+						<f:facet name="header">Name</f:facet>
     				#{o.name}
     			</h:column>
 
-		<h:column>
-			<f:facet name="header">Status</f:facet>
+					<h:column>
+						<f:facet name="header">Status</f:facet>
     				#{o.status}
     			</h:column>
 
-		<h:column>
-			<f:facet name="header">Registered</f:facet>
-			<h:commandButton value="Register" type="submit"
-				action="#{user.goLoginPage}" />
-		</h:column>
-		
-		<h:column>
-			<f:facet name="header">View</f:facet>
-			<form action="welcome" method="post">
-				<input type="hidden" value="#{o.id}" name="selectedDeviceId" />
-				<input type="submit" value="View" name="deviceSelected"/>
-			</form>
-		</h:column>
+					<h:column>
+						<f:facet name="header">Registered</f:facet>
+						<h:commandButton class="btn btn-outline-info" value="Register"
+							type="submit" action="#{user.goLoginPage}" />
+					</h:column>
 
-	</h:dataTable>
+					<h:column>
+						<f:facet name="header">View</f:facet>
+						<form action="welcome" method="post">
+							<input type="hidden" value="#{o.id}" name="selectedDeviceId" />
+							<input class="btn btn-outline-primary" type="submit" value="View"
+								name="deviceSelected" />
+						</form>
+					</h:column>
+
+				</h:dataTable>
+			</div>
+		</div>
+	</div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<h:outputScript name="bootstrap-4.3.1-dist/js/bootstrap.min.js" />
 </h:body>
 
 </html>
